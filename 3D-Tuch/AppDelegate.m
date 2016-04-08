@@ -16,9 +16,41 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    UIApplicationShortcutIcon *s1 = [UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeSearch];
+    UIApplicationShortcutIcon *s2 = [UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCloud];
+    UIApplicationShortcutIcon *uu = [UIApplicationShortcutIcon iconWithTemplateImageName:@""];
+    UIApplicationShortcutIcon *vv = [UIApplicationShortcutIcon iconWithTemplateImageName:@""];
+    UIMutableApplicationShortcutItem *mAShortcutItem = [[UIMutableApplicationShortcutItem alloc]initWithType:@"type1" localizedTitle:@"😍😍😍" localizedSubtitle:@"程飞大傻子" icon:s1 userInfo:@{@"123":@"456"}];
+    
+    UIMutableApplicationShortcutItem *mASI = [[UIMutableApplicationShortcutItem alloc]initWithType:@"type2" localizedTitle:@"😍😍😍" localizedSubtitle:@"程飞大傻子" icon:s2 userInfo:@{@"789":@"000"}];
+    UIMutableApplicationShortcutItem *sss = [[UIMutableApplicationShortcutItem alloc]initWithType:@"type2" localizedTitle:@"😍😍😍" localizedSubtitle:@"程飞大傻子" icon:uu userInfo:@{@"789":@"000"}];
+    UIMutableApplicationShortcutItem *ddd = [[UIMutableApplicationShortcutItem alloc]initWithType:@"type2" localizedTitle:@"😍😍😍" localizedSubtitle:@"程飞大傻子" icon:vv userInfo:@{@"789":@"000"}];
+    
+    // 添加3DTouch元素
+    application.shortcutItems =  @[mAShortcutItem, mASI,sss,ddd];
     return YES;
 }
+
+-(void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
+{
+    NSString *tpye = shortcutItem.type;
+    if ([tpye isEqualToString:@"type1"]) { // 分享
+        // 处理相关逻辑
+        NSLog(@"跳页去分享吧");
+        UIViewController *vc = application.keyWindow.rootViewController;
+        
+        completionHandler(YES);
+    }else if ([tpye isEqualToString:@"type2"]) // 编辑
+    {
+        NSLog(@"编辑");
+        completionHandler(YES);
+    }else
+    {
+        NSLog(@"未知");
+        completionHandler(NO);
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
